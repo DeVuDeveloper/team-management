@@ -1,0 +1,38 @@
+Lint/EmptyFile:
+  Exclude:
+    - 'db/seeds/production.rb'
+
+Metrics/AbcSize:
+  Max: 23
+
+Metrics/BlockLength:
+  Max: 58
+
+Metrics/CyclomaticComplexity:
+  Max: 9
+
+Metrics/MethodLength:
+  Max: 28
+
+Metrics/PerceivedComplexity:
+  Max: 9
+
+  Exclude:
+    - 'config/initializers/rswag-ui.rb'
+
+Naming/PredicateName:
+  Exclude:
+    - 'spec/**/*'
+    - 'app/helpers/application_helper.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Exclude:
+    - 'bin/bundle'
+    - 'db/seeds/development.rb'
+    - 'db/seeds/test.rb'
+
+Layout/LineLength:
+  Max: 198
