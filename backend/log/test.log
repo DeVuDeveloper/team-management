@@ -1,0 +1,265 @@
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (490.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "team_management_test"[0m
+  [1m[35m (1132.4ms)[0m  [1m[35mCREATE DATABASE "team_management_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "oauth_access_tokens" CASCADE[0m
+  [1m[35m (115.0ms)[0m  [1m[35mCREATE TABLE "oauth_access_tokens" ("id" bigserial primary key, "resource_owner_id" bigint, "application_id" bigint NOT NULL, "token" character varying NOT NULL, "refresh_token" character varying, "expires_in" integer, "revoked_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "scopes" character varying, "previous_refresh_token" character varying DEFAULT '' NOT NULL)[0m
+  [1m[35m (65.0ms)[0m  [1m[35mCREATE INDEX "index_oauth_access_tokens_on_application_id" ON "oauth_access_tokens" ("application_id")[0m
+  [1m[35m (74.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_oauth_access_tokens_on_refresh_token" ON "oauth_access_tokens" ("refresh_token")[0m
+  [1m[35m (82.5ms)[0m  [1m[35mCREATE INDEX "index_oauth_access_tokens_on_resource_owner_id" ON "oauth_access_tokens" ("resource_owner_id")[0m
+  [1m[35m (66.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_oauth_access_tokens_on_token" ON "oauth_access_tokens" ("token")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "oauth_applications" CASCADE[0m
+  [1m[35m (107.3ms)[0m  [1m[35mCREATE TABLE "oauth_applications" ("id" bigserial primary key, "name" character varying NOT NULL, "uid" character varying NOT NULL, "secret" character varying NOT NULL, "redirect_uri" text, "scopes" character varying DEFAULT '' NOT NULL, "confidential" boolean DEFAULT TRUE NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (57.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_oauth_applications_on_uid" ON "oauth_applications" ("uid")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "projects" CASCADE[0m
+  [1m[35m (113.3ms)[0m  [1m[35mCREATE TABLE "projects" ("id" bigserial primary key, "name" character varying, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (127.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp(6), "remember_created_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "role" integer DEFAULT 0)[0m
+  [1m[35m (57.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (65.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (8.1ms)[0m  [1m[35mALTER TABLE "oauth_access_tokens" ADD CONSTRAINT "fk_rails_732cb83ab7"
+FOREIGN KEY ("application_id")
+  REFERENCES "oauth_applications" ("id")
+[0m
+  [1m[35m (133.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (9.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20230903114207)[0m
+  [1m[35m (8.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20220404025721),
+(20220404025750),
+(20220404030809);
+
+[0m
+  [1m[35m (130.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (17.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2023-09-04 12:47:27.214361"], ["updated_at", "2023-09-04 12:47:27.214361"]]
+  [1m[36mTRANSACTION (16.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (1.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "10f22920cf84885001548d97f3500fb5b148705d"], ["created_at", "2023-09-04 12:47:27.264396"], ["updated_at", "2023-09-04 12:47:27.264396"]]
+  [1m[36mTRANSACTION (40.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (5.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "jgqC4sWVHhim3r0Vabi6idJZLarwcnHZJnjH2YcTEdA"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (4.2ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Span"], ["uid", "jgqC4sWVHhim3r0Vabi6idJZLarwcnHZJnjH2YcTEdA"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:29.910862"], ["updated_at", "2023-09-04 12:47:29.910862"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "sandie_sipes@hayes-von.example"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "role") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "sandie_sipes@hayes-von.example"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-09-04 12:47:30.040683"], ["updated_at", "2023-09-04 12:47:30.040683"], ["role", 0]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."refresh_token" = $1 LIMIT $2[0m  [["refresh_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::AccessToken Create (3.5ms)[0m  [1m[32mINSERT INTO "oauth_access_tokens" ("resource_owner_id", "application_id", "token", "refresh_token", "expires_in", "revoked_at", "created_at", "scopes", "previous_refresh_token") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["resource_owner_id", 1], ["application_id", 1], ["token", "[FILTERED]"], ["refresh_token", "[FILTERED]"], ["expires_in", 3600], ["revoked_at", nil], ["created_at", "2023-09-04 12:47:30.052917"], ["scopes", nil], ["previous_refresh_token", "[FILTERED]"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProject Create (1.6ms)[0m  [1m[32mINSERT INTO "projects" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Beahan-Deckow"], ["description", "Odit doloremque expedita. Accusantium commodi amet. Maxime nihil repellat."], ["created_at", "2023-09-04 12:47:30.108865"], ["updated_at", "2023-09-04 12:47:30.108865"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/projects" for 127.0.0.1 at 2023-09-04 14:47:30 +0200
+Processing by Api::V1::ProjectsController#index as HTML
+  [1m[36mDoorkeeper::AccessToken Load (0.8ms)[0m  [1m[34mSELECT "oauth_access_tokens".* FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProject Load (1.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 107ms (Views: 3.1ms | ActiveRecord: 2.3ms | Allocations: 3275)
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "hLnxkXtyNCCrrR__1s4ulIeK4EFw5d86o8NKzRusL8Y"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (4.8ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Cardify"], ["uid", "hLnxkXtyNCCrrR__1s4ulIeK4EFw5d86o8NKzRusL8Y"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:30.605147"], ["updated_at", "2023-09-04 12:47:30.605147"]]
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "tomeka@gutkowski.example"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "role") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "tomeka@gutkowski.example"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-09-04 12:47:30.637955"], ["updated_at", "2023-09-04 12:47:30.637955"], ["role", 0]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."refresh_token" = $1 LIMIT $2[0m  [["refresh_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::AccessToken Create (0.7ms)[0m  [1m[32mINSERT INTO "oauth_access_tokens" ("resource_owner_id", "application_id", "token", "refresh_token", "expires_in", "revoked_at", "created_at", "scopes", "previous_refresh_token") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["resource_owner_id", 2], ["application_id", 2], ["token", "[FILTERED]"], ["refresh_token", "[FILTERED]"], ["expires_in", 3600], ["revoked_at", nil], ["created_at", "2023-09-04 12:47:30.644554"], ["scopes", nil], ["previous_refresh_token", "[FILTERED]"]]
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProject Create (1.3ms)[0m  [1m[32mINSERT INTO "projects" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Hegmann, Schultz and Towne"], ["description", "Eos quos velit. Sit est culpa. Non neque rerum."], ["created_at", "2023-09-04 12:47:30.653129"], ["updated_at", "2023-09-04 12:47:30.653129"]]
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/projects" for 127.0.0.1 at 2023-09-04 14:47:30 +0200
+Processing by Api::V1::ProjectsController#index as HTML
+Filter chain halted as :doorkeeper_authorize! rendered or redirected
+Completed 401 Unauthorized in 66ms (ActiveRecord: 0.0ms | Allocations: 1258)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "Wh-ffCjNw-1B_TWgRR617vAIJsFJy1j6GRmmL-3mj08"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (2.1ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Ventosanzap"], ["uid", "Wh-ffCjNw-1B_TWgRR617vAIJsFJy1j6GRmmL-3mj08"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:30.748840"], ["updated_at", "2023-09-04 12:47:30.748840"]]
+  [1m[36mTRANSACTION (2.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "linwood@botsford.test"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "role") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "linwood@botsford.test"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-09-04 12:47:30.771815"], ["updated_at", "2023-09-04 12:47:30.771815"], ["role", 0]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."refresh_token" = $1 LIMIT $2[0m  [["refresh_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::AccessToken Create (1.1ms)[0m  [1m[32mINSERT INTO "oauth_access_tokens" ("resource_owner_id", "application_id", "token", "refresh_token", "expires_in", "revoked_at", "created_at", "scopes", "previous_refresh_token") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["resource_owner_id", 3], ["application_id", 3], ["token", "[FILTERED]"], ["refresh_token", "[FILTERED]"], ["expires_in", 3600], ["revoked_at", nil], ["created_at", "2023-09-04 12:47:30.779766"], ["scopes", nil], ["previous_refresh_token", "[FILTERED]"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProject Create (0.5ms)[0m  [1m[32mINSERT INTO "projects" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Kutch, Mohr and Rutherford"], ["description", "Exercitationem necessitatibus illo. Deserunt explicabo laborum. Sunt similique dolores."], ["created_at", "2023-09-04 12:47:30.796380"], ["updated_at", "2023-09-04 12:47:30.796380"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/projects/3" for 127.0.0.1 at 2023-09-04 14:47:30 +0200
+Processing by Api::V1::ProjectsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mDoorkeeper::AccessToken Load (0.8ms)[0m  [1m[34mSELECT "oauth_access_tokens".* FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+Completed 200 OK in 7ms (Views: 0.5ms | ActiveRecord: 1.2ms | Allocations: 693)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "U8FsiugxGB9jCyAnMgoS81Gd5DC6vy5qZclTrNOREnc"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (1.0ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Vagram"], ["uid", "U8FsiugxGB9jCyAnMgoS81Gd5DC6vy5qZclTrNOREnc"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:30.822703"], ["updated_at", "2023-09-04 12:47:30.822703"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "karmen@howe.test"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "role") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "karmen@howe.test"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-09-04 12:47:30.829378"], ["updated_at", "2023-09-04 12:47:30.829378"], ["role", 0]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."refresh_token" = $1 LIMIT $2[0m  [["refresh_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::AccessToken Create (0.6ms)[0m  [1m[32mINSERT INTO "oauth_access_tokens" ("resource_owner_id", "application_id", "token", "refresh_token", "expires_in", "revoked_at", "created_at", "scopes", "previous_refresh_token") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["resource_owner_id", 4], ["application_id", 4], ["token", "[FILTERED]"], ["refresh_token", "[FILTERED]"], ["expires_in", 3600], ["revoked_at", nil], ["created_at", "2023-09-04 12:47:30.833129"], ["scopes", nil], ["previous_refresh_token", "[FILTERED]"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProject Create (0.3ms)[0m  [1m[32mINSERT INTO "projects" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Corwin Group"], ["description", "Repudiandae perferendis quam. Quam repudiandae labore. Dolores praesentium quaerat."], ["created_at", "2023-09-04 12:47:30.837522"], ["updated_at", "2023-09-04 12:47:30.837522"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/projects/invalid" for 127.0.0.1 at 2023-09-04 14:47:30 +0200
+Processing by Api::V1::ProjectsController#show as HTML
+  Parameters: {"id"=>"invalid"}
+  [1m[36mDoorkeeper::AccessToken Load (0.3ms)[0m  [1m[34mSELECT "oauth_access_tokens".* FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProject Load (1.7ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+Filter chain halted as :set_project rendered or redirected
+Completed 404 Not Found in 4ms (Views: 0.1ms | ActiveRecord: 2.0ms | Allocations: 371)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "NJVsg7l-mphvyts8k1G3fsLoKAyGnFzIwRvPsrJhteY"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (0.6ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Stronghold"], ["uid", "NJVsg7l-mphvyts8k1G3fsLoKAyGnFzIwRvPsrJhteY"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:30.850136"], ["updated_at", "2023-09-04 12:47:30.850136"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "ivonne@mante.example"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "role") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "ivonne@mante.example"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-09-04 12:47:30.856641"], ["updated_at", "2023-09-04 12:47:30.856641"], ["role", 0]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."refresh_token" = $1 LIMIT $2[0m  [["refresh_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::AccessToken Create (0.7ms)[0m  [1m[32mINSERT INTO "oauth_access_tokens" ("resource_owner_id", "application_id", "token", "refresh_token", "expires_in", "revoked_at", "created_at", "scopes", "previous_refresh_token") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["resource_owner_id", 5], ["application_id", 5], ["token", "[FILTERED]"], ["refresh_token", "[FILTERED]"], ["expires_in", 3600], ["revoked_at", nil], ["created_at", "2023-09-04 12:47:30.859954"], ["scopes", nil], ["previous_refresh_token", "[FILTERED]"]]
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProject Create (0.4ms)[0m  [1m[32mINSERT INTO "projects" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Feeney, Shields and Lind"], ["description", "Et ea saepe. Est molestiae delectus. Magni harum at."], ["created_at", "2023-09-04 12:47:30.867215"], ["updated_at", "2023-09-04 12:47:30.867215"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/projects/5" for 127.0.0.1 at 2023-09-04 14:47:30 +0200
+Processing by Api::V1::ProjectsController#show as HTML
+  Parameters: {"id"=>"5"}
+Filter chain halted as :doorkeeper_authorize! rendered or redirected
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms | Allocations: 147)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "bVtGP9gaYv0BnW3134v_8icB3Yv9SJKMTJQdZ_OTGF8"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (0.3ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Rank"], ["uid", "bVtGP9gaYv0BnW3134v_8icB3Yv9SJKMTJQdZ_OTGF8"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:30.877087"], ["updated_at", "2023-09-04 12:47:30.877087"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "emilia@price.test"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "role") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "emilia@price.test"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-09-04 12:47:30.882193"], ["updated_at", "2023-09-04 12:47:30.882193"], ["role", 0]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."refresh_token" = $1 LIMIT $2[0m  [["refresh_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::AccessToken Create (0.4ms)[0m  [1m[32mINSERT INTO "oauth_access_tokens" ("resource_owner_id", "application_id", "token", "refresh_token", "expires_in", "revoked_at", "created_at", "scopes", "previous_refresh_token") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["resource_owner_id", 6], ["application_id", 6], ["token", "[FILTERED]"], ["refresh_token", "[FILTERED]"], ["expires_in", 3600], ["revoked_at", nil], ["created_at", "2023-09-04 12:47:30.885586"], ["scopes", nil], ["previous_refresh_token", "[FILTERED]"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProject Create (0.4ms)[0m  [1m[32mINSERT INTO "projects" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Koss, Schmidt and Jenkins"], ["description", "Nobis non animi. Et est neque. Suscipit natus non."], ["created_at", "2023-09-04 12:47:30.890518"], ["updated_at", "2023-09-04 12:47:30.890518"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/projects" for 127.0.0.1 at 2023-09-04 14:47:31 +0200
+Processing by Api::V1::ProjectsController#create as HTML
+  Parameters: {"name"=>"Teams", "description"=>"A great project", "project"=>{"name"=>"Teams", "description"=>"A great project"}}
+  [1m[36mDoorkeeper::AccessToken Load (0.9ms)[0m  [1m[34mSELECT "oauth_access_tokens".* FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProject Create (1.0ms)[0m  [1m[32mINSERT INTO "projects" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Teams"], ["description", "A great project"], ["created_at", "2023-09-04 12:47:31.089950"], ["updated_at", "2023-09-04 12:47:31.089950"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/api/v1/projects/7
+Completed 302 Found in 19ms (ActiveRecord: 4.3ms | Allocations: 1186)
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "Sdh-eu3kDEh45NX5MHUnApZFPqdP9stzKnSCtGm126c"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (0.8ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Lotstring"], ["uid", "Sdh-eu3kDEh45NX5MHUnApZFPqdP9stzKnSCtGm126c"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:31.118928"], ["updated_at", "2023-09-04 12:47:31.118928"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (2.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "napoleon_parker@armstrong.example"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "role") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "napoleon_parker@armstrong.example"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-09-04 12:47:31.128172"], ["updated_at", "2023-09-04 12:47:31.128172"], ["role", 0]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."refresh_token" = $1 LIMIT $2[0m  [["refresh_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::AccessToken Create (1.0ms)[0m  [1m[32mINSERT INTO "oauth_access_tokens" ("resource_owner_id", "application_id", "token", "refresh_token", "expires_in", "revoked_at", "created_at", "scopes", "previous_refresh_token") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["resource_owner_id", 7], ["application_id", 7], ["token", "[FILTERED]"], ["refresh_token", "[FILTERED]"], ["expires_in", 3600], ["revoked_at", nil], ["created_at", "2023-09-04 12:47:31.132331"], ["scopes", nil], ["previous_refresh_token", "[FILTERED]"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProject Create (0.8ms)[0m  [1m[32mINSERT INTO "projects" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Hansen-Goodwin"], ["description", "Nobis ad sit. Ratione enim est. Molestias qui porro."], ["created_at", "2023-09-04 12:47:31.137734"], ["updated_at", "2023-09-04 12:47:31.137734"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/projects" for 127.0.0.1 at 2023-09-04 14:47:31 +0200
+Processing by Api::V1::ProjectsController#create as HTML
+  Parameters: {"project"=>{"name"=>"Keebler Group", "description"=>"Veniam odio molestiae. Laborum tempore repellat. Dolorem totam qui."}}
+Filter chain halted as :doorkeeper_authorize! rendered or redirected
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms | Allocations: 147)
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "marco@romaguera.test"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "S1eRsoQ2KppiZIHDZuThcgSdeJuCSCkrnnYl4m4dUG8"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (0.9ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Sonair"], ["uid", "S1eRsoQ2KppiZIHDZuThcgSdeJuCSCkrnnYl4m4dUG8"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:31.158873"], ["updated_at", "2023-09-04 12:47:31.158873"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Count (14.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mDoorkeeper::AccessToken Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "oauth_access_tokens"[0m
+Processing by Api::V1::Users::RegistrationsController#create as JSON
+  Parameters: {"client_id"=>"S1eRsoQ2KppiZIHDZuThcgSdeJuCSCkrnnYl4m4dUG8", "email"=>"test@example.com", "password"=>"[FILTERED]"}
+  [1m[36mDoorkeeper::Application Load (1.2ms)[0m  [1m[34mSELECT "oauth_applications".* FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "S1eRsoQ2KppiZIHDZuThcgSdeJuCSCkrnnYl4m4dUG8"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :format. Context: { controller: Api::V1::Users::RegistrationsController, action: create, request: #<ActionController::TestRequest:0x00007f913dae37a8>, params: {"client_id"=>"S1eRsoQ2KppiZIHDZuThcgSdeJuCSCkrnnYl4m4dUG8", "email"=>"test@example.com", "password"=>"[FILTERED]", "format"=>"json", "controller"=>"api/v1/users/registrations", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "role") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "test@example.com"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-09-04 12:47:31.293633"], ["updated_at", "2023-09-04 12:47:31.293633"], ["role", 0]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::AccessToken Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."refresh_token" = $1 LIMIT $2[0m  [["refresh_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Load (0.6ms)[0m  [1m[34mSELECT "oauth_applications".* FROM "oauth_applications" WHERE "oauth_applications"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::AccessToken Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_access_tokens" WHERE "oauth_access_tokens"."token" = $1 LIMIT $2[0m  [["token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::AccessToken Create (1.1ms)[0m  [1m[32mINSERT INTO "oauth_access_tokens" ("resource_owner_id", "application_id", "token", "refresh_token", "expires_in", "revoked_at", "created_at", "scopes", "previous_refresh_token") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["resource_owner_id", 8], ["application_id", 8], ["token", "[FILTERED]"], ["refresh_token", "[FILTERED]"], ["expires_in", 7200], ["revoked_at", nil], ["created_at", "2023-09-04 12:47:31.307800"], ["scopes", ""], ["previous_refresh_token", "[FILTERED]"]]
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 163ms (Views: 1.7ms | ActiveRecord: 9.0ms | Allocations: 3606)
+  [1m[36mDoorkeeper::AccessToken Count (3.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "oauth_access_tokens"[0m
+  [1m[36mUser Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "UGMSW-2m-fjfoqaaGMZNtcZwgpyhEN9EIcsZFh-jGtQ"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (1.9ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Job"], ["uid", "UGMSW-2m-fjfoqaaGMZNtcZwgpyhEN9EIcsZFh-jGtQ"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:31.468390"], ["updated_at", "2023-09-04 12:47:31.468390"]]
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::V1::Users::RegistrationsController#create as JSON
+  Parameters: {"client_id"=>"UGMSW-2m-fjfoqaaGMZNtcZwgpyhEN9EIcsZFh-jGtQ", "email"=>"", "password"=>"[FILTERED]"}
+  [1m[36mDoorkeeper::Application Load (1.3ms)[0m  [1m[34mSELECT "oauth_applications".* FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "UGMSW-2m-fjfoqaaGMZNtcZwgpyhEN9EIcsZFh-jGtQ"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :format. Context: { controller: Api::V1::Users::RegistrationsController, action: create, request: #<ActionController::TestRequest:0x00007f913da73700>, params: {"client_id"=>"UGMSW-2m-fjfoqaaGMZNtcZwgpyhEN9EIcsZFh-jGtQ", "email"=>"", "password"=>"[FILTERED]", "format"=>"json", "controller"=>"api/v1/users/registrations", "action"=>"create"} }[0m
+Completed 422 Unprocessable Entity in 15ms (Views: 0.3ms | ActiveRecord: 1.3ms | Allocations: 1569)
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoorkeeper::Application Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "vtpt9G3eSMy36jfKGFpgJTpkWPJIG25H97gQtZ4xzIg"], ["LIMIT", 1]]
+  [1m[36mDoorkeeper::Application Create (2.1ms)[0m  [1m[32mINSERT INTO "oauth_applications" ("name", "uid", "secret", "redirect_uri", "scopes", "confidential", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Zaam-Dox"], ["uid", "vtpt9G3eSMy36jfKGFpgJTpkWPJIG25H97gQtZ4xzIg"], ["secret", "[FILTERED]"], ["redirect_uri", ""], ["scopes", ""], ["confidential", true], ["created_at", "2023-09-04 12:47:31.508812"], ["updated_at", "2023-09-04 12:47:31.508812"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::V1::Users::RegistrationsController#create as JSON
+  Parameters: {"client_id"=>"invalid_client_id", "email"=>"test@example.com", "password"=>"[FILTERED]"}
+  [1m[36mDoorkeeper::Application Load (0.9ms)[0m  [1m[34mSELECT "oauth_applications".* FROM "oauth_applications" WHERE "oauth_applications"."uid" = $1 LIMIT $2[0m  [["uid", "invalid_client_id"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 2ms (Views: 0.2ms | ActiveRecord: 0.9ms | Allocations: 236)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK[0m
