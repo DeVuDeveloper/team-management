@@ -7,7 +7,6 @@ module Api
       before_action :current_user
       respond_to :json
 
-      # GET /me.json
       def me
         if @current_user.nil?
           render json: { error: 'Not Authorized' }, status: :unauthorized

@@ -39,7 +39,7 @@ module Api
       def update
         respond_to do |format|
           if @project.update(project_params)
-            format.html { redirect_to api_v1_project_url(@project), notice: 'Project was successfully updated.' }
+            format.html { redirect_to api_v1_projects_url, notice: 'Project was successfully updated.' }
             format.json { render :show, status: :ok, location: @project }
           else
             format.html { render :edit, status: :unprocessable_entity }
